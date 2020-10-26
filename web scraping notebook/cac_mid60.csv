@@ -1,0 +1,61 @@
+,firme,stock,book_to_market,price_to_sales,price_to_cash_flow,price_to_book,dividend_yield,g,payout_ratio,price,market_cap,price_to_earnings,beta,earnings_per_share,dividend,shares_outstanding,sector,employees,revenue,indices
+0,Aeroports de Paris SA (ADP),ADP,44.06,2.31,-,1.95,0.82%,-35.76%,-,89.5,8.49B,20.55,1.14, - 2.33,0.70,98.944.352,Transports (divers),26122,5.87B,cac mid 60
+1,Air France - KLM SA (AIRF),AIRF,-5.99,0.08,3,-,-,-,-,3.73,1.56B,4.29,0.99, - 9.17,,427.432.464,Compagnies aériennes,83896,20.35B,cac mid 60
+2,Akka Technologies (AKA),AKA,21.87,0.24,3.21,0.75,3.86%,-,19.2%,16.56,360.25M,5.04,2.06,3.27,0.64,21.833.313,Logiciels et programmation,20930,1.51B,cac mid 60
+3,Albioma SA (ABIO),ABIO,13.24,2.79,134.25,3.44,1.54%,7.09%,43.03%,43.8,1.41B,29.13,0.63,1.56,0.70,30.893.808,Fournisseurs d'électricité,579,756.39M,cac mid 60
+4,ALD SA (ALDA),ALDA,9.63,0.37,-,0.93,7.03%,-,53.01%,9.32,3.61B,7.54,,1.19,0.63,403.000.753,Location et leasing,6708,14.49B,cac mid 60
+5,Alten SA (LTEN),LTEN,33.05,0.95,14.38,2.22,-,-,0%,74.7,2.47B,15.12,1.33,4.84,,33.696.147,Services informatiques,37200,2.62B,cac mid 60
+6,Amundi SA (AMUN),AMUN,46.03,2.71,13.35,1.34,-,12.11%,69.72%,62.3,12.43B,13.96,1.41,4.43,3.10,200.939.323,Services d'investissement,4506,5.88B,cac mid 60
+7,Aperam SA (APAM),APAM,26.32,0.55,19.56,0.95,7%,8.87%,51.18%,25.38,2B,17.26,1.81,1.45,1.75,79.815.839,Fer et acier,9500,6.11B,cac mid 60
+8,Biomerieux SA (BIOX),BIOX,19.97,5.27,161,6.41,0.15%,-17.09%,14.74%,123.6,15.15B,49.7, - 0.09,2.58,0.19,118.345.697,Biotechnologie et médicaments,11795,4.15B,cac mid 60
+9,Bolloré SA (BOLL),BOLL,2.88,0.38,8.37,1.1,1.89%,0%,44.75%,3.26,9.32B,35.48,0.75,0.09,0.06,2.930.886.036,Services aux entreprises,83801,36.46B,cac mid 60
+10,Casino Guichard Perrachon SA (CASP),CASP,34.77,0.07,-,0.62,14.36%,-,-,22.5,2.34B,17.94,0.65, - 3.96,3.12,107.750.694,Détaillants (épicerie),209696,50.7B,cac mid 60
+11,CGG SA (GEPH),GEPH,1.55,0.47,1.14,0.44,-,-,-,0.716,488.82M,9.48,2.74, - 0.1,,711.323.839,Puits de pétrole - services et équipement,4564,27.31M,cac mid 60
+12,CNP Assurances SA (CNPP),CNPP,27.55,0.21,0.91,0.39,-,-,49.18%,11.29,7.45B,5.68,1.28,1.91,0.94,685.913.525,Assurance (biens et multirisques),5353,60.24B,cac mid 60
+13,Coface (COFA),COFA,12.72,0.95,9.14,0.54,-,97.4%,163.88%,6.74,1.03B,11.24,0.85,0.61,1.0,150.697.558,Assurance (vie),3248,1.83B,cac mid 60
+14,Dassault Aviation SA (AVMD),AVMD,514.41,0.93,-,1.51,-,28.04%,43.18%,799.0,6.44B,13.12,1.05,59.05,25.4,8.315.282,Aérospatiale et défense,12757,10.02B,cac mid 60
+15,DBV Technologies SA (DBV),DBV,4.09,13.38,-,0.81,-,-,-,3.42,182.29M,24.78,1.36, - 3.41,,54.874.086,Biotechnologie et médicaments,311,20.7M,cac mid 60
+16,Elior Group (ELIOR),ELIOR,9.42,0.16,0.55,0.45,6.77%,-11.61%,129.38%,4.36,727.67M,18.88,1.24,0.23,0.29,169.856.718,Restauration,110162,4.78B,cac mid 60
+17,Elis Services SA (ELIS),ELIS,12.4,0.8,9.56,0.89,-,-,144.07%,11.09,2.43B,46.78,1.38,0.23,,221.179.748,Services aux entreprises,49868,4.63B,cac mid 60
+18,Eramet SA (ERMT),ERMT,28.61,0.2,-,0.92,-,-,-,26.8,695.09M,16.5,1.24, - 29.08,,26.459.441,Exploitation des métaux,12600,5.36B,cac mid 60
+19,Eurazeo (EURA),EURA,60,0.86,33.33,0.75,-,-,-,47.36,3.14B,6.94,1.09, - 6.31,1.5,75.807.044,Misc. Financial Services,29124,6.48B,cac mid 60
+20,Euronext (ENX),ENX,12.99,8.79,59.44,7.87,1.55%,3.84%,38.17%,98.1,7.14B,24.6,0.64,4.16,1.59,69.767.375,Services d'investissement,1236,1.23B,cac mid 60
+21,Eutelsat Communications SA (ETL),ETL,-,1.6,8.42,-,10.13%,-9.73%,0%,9.12,2.02B,6.85,0.79,1.28,0.89,230.150.705,Services de communication,1001,2.58B,cac mid 60
+22,Covivio SA (CVO),CVO,89.24,5.08,172.72,0.67,8.01%,2.94%,65.17%,61.9,5.64B,9.06,1.17,6.61,4.8,94.205.224,Opérations immobilières,995,1.73B,cac mid 60
+23,Genfit SA (GNFT),GNFT,2.16,3.66,-,1.78,-,-,-,4.01,149.84M,24.78,0.94, - 1.97,,38.858.617,Biotechnologie et médicaments,175,40.96M,cac mid 60
+24,Groupe FNAC (FNAC),FNAC,47.63,0.15,1.98,0.82,-,-,0%,37.82,1.04B,14.81,1.43,2.64,1.50,26.502.673,Détaillants (spécialisés),21693,10.01B,cac mid 60
+25,GTT (GTT),GTT,6.8,8.52,-,12.48,5.01%,6.91%,77.89%,84.55,3.15B,15.63,0.77,5.43,4.25,37.069.230,Puits de pétrole - services et équipement,381,492M,cac mid 60
+26,Icade (ICAD),ICAD,38.67,2.44,-,1.24,8.35%,0.08%,45.71%,51.4,3.55B,13.72,0.74,3.5,4.01,73.932.200,Opérations immobilières,1127,2.14B,cac mid 60
+27,Iliad (ILD),ILD,94.59,1.82,-,1.79,1.54%,80.79%,8.26%,168.55,9.87B,5.26,0.17,32.15,2.60,58.390.539,Services de communication,11083,8.12B,cac mid 60
+28,Imerys SA (IMTP),IMTP,35.6,0.71,93.68,0.94,5.13%,-2.75%,208.7%,34.38,2.83B,32.82,1.5,1.02,1.72,84.474.296,Construction - matières premières,15023,6.25B,cac mid 60
+29,Ipsen SA (IPN),IPN,22.35,2.88,29.49,4.15,1.08%,5.57%,-,94.1,7.72B,24.78,1, - 0.6,1.00,83.095.833,Biotechnologie et médicaments,5807,4B,cac mid 60
+30,Ipsos (ISOS),ISOS,23.6,0.51,10.07,0.92,2.07%,-19.1%,44.66%,21.65,956.14M,11.29,1.07,1.93,0.45,43.960.255,Services aux entreprises,18417,2.79B,cac mid 60
+31,JC Decaux SA (JCDX),JCDX,8.87,1.22,3.46,1.81,-,1.18%,-,16.02,3.41B,22.1,1.3, - 0.4,0.58,212.902.810,Publicité,12076,4.46B,cac mid 60
+32,Korian Medica SA (KORI),KORI,31.36,0.64,5.86,0.9,-,-,0%,32.7,2.55B,38.15,0.65,0.85,NaN,82.708.882,Healthcare Facilities,26336,5.45B,cac mid 60
+33,La Francaise Des Jeux Sa (FDJ),FDJ,2.8,3.29,315.25,11.42,1.41%,-,237.99%,31.09,6.12B,69.88,,0.46,0.45,191.000.000,Casinos et jeux,2622,2.8B,cac mid 60
+34,Lagardere SCA (LAGA),LAGA,7.51,0.35,3.33,2.03,-,-8.37%,-,17.39,1.97B,37.17,1.29, - 2.58,1.0,129.185.495,Impression et édition,26689,9.12B,cac mid 60
+35,Metropole Television SA (MMTP),MMTP,7.49,1.07,29.65,1.47,-,5.57%,51.04%,11.3,1.38B,5.61,1.03,1.96,1.0,125.671.000,Audiovisuel et télévision par câble,2606,2.01B,cac mid 60
+36,Maisons du Monde SAS (MDM),MDM,13.5,0.49,3.34,0.95,-,-,0%,13.27,581.06M,16.86,1.49,0.76,,45.148.771,Meubles et équipements,8628,1.77B,cac mid 60
+37,Mercialys SA (MERY),MERY,6.97,2.36,8.1,0.69,19.64%,-3.59%,123.7%,5.42,443.72M,5.19,1.03,0.93,0.48,91.752.867,Opérations immobilières,111,283.86M,cac mid 60
+38,Natixis (CNAT),CNAT,6.06,-,-,0.36,-,-,0%,2.18,6.79B,13.28,1.22,0.16,,3.151.102.683,Banques régionales,19639,11.9B,cac mid 60
+39,Neoen SA (NEOEN),NEOEN,7.79,14.43,-,5.5,-,-,0%,43.95,3.64B,182.83,,0.23,,84.889.800,Fournisseurs d'électricité,213,253.2M,cac mid 60
+40,Nexans SA (NEXS),NEXS,24.53,0.32,61.31,1.89,-,-,-,47.3,2B,7.67,1.65, - 1.41,0.40,43.138.921,Produits fabriqués (divers),25945,9.69B,cac mid 60
+41,Nexity (NEXI),NEXI,29.87,0.4,11.51,0.97,6.91%,-5.9%,121.94%,30.08,1.6B,16.07,0.8,1.8,2.00,55.387.955,Services de construction,10989,5.81B,cac mid 60
+42,Compagnie Plastic Omnium SA (PLOF),PLOF,11.9,0.45,44.43,1.82,2.26%,0%,-,22.12,3.16B,382.48,1.93, - 2.07,0.49,145.444.918,Pièces automobiles et de camions,23179,11.46B,cac mid 60
+43,Rémy Cointreau (RCOP),RCOP,28.13,7.32,-,5.31,0.67%,-15.37%,46.96%,150.7,7.45B,78.02,0.16,1.92,1.00,49.849.721,Boissons (alcoolisées),1853,1.02B,cac mid 60
+44,Rexel (RXL),RXL,12.21,0.26,11.53,0.9,-,-,-,11.48,3.32B,25.63,1.78, - 1.32,0.48,302.353.101,Instruments et commandes électroniques,22908,19.79B,cac mid 60
+45,Robertet (ROBF),ROBF,197.61,4.23,68.44,5.18,0.49%,2.82%,21.78%,1.022,2.36B,44.58,0.34,22.97,5.00,2.308.095,Produits personnels et ménagers,1940,554.27M,cac mid 60
+46,Rubis SCA (RUBF),RUBF,23.58,0.82,46.88,1.52,4.87%,9.31%,111.89%,38.7,3.72B,23.33,0.83,1.54,1.75,103.520.893,Activités pétrolières et gazières,3519,7.14B,cac mid 60
+47,SEB SA (SEBF),SEBF,45.43,1.02,25.29,3.08,1.02%,-5.97%,25.4%,140.1,6.99B,24.9,1,5.62,1.43,49.939.417,Appareils et outils,33293,10.27B,cac mid 60
+48,SES SA (SESFd),SESFd,13.28,1.42,6.01,0.46,5.6%,-36.69%,78.28%,6.27,2.79B,16.83,1.1,0.36,0.34,558.590.436,Services de communication,2159,2.94B,cac mid 60
+49,Société BIC SA (BICP),BICP,30.84,1.21,36.73,1.52,5.23%,-10.78%,101.51%,47.82,2.11B,19.41,0.2,2.41,2.45,44.980.244,Fournitures de bureau,12777,2.61B,cac mid 60
+50,Soitec SA (SOIT),SOIT,16.63,7.26,279.81,7.87,-,-,0%,126.0,4.34B,39.03,2.12,3.35,,33.176.479,Semi-conducteurs,1566,597.55M,cac mid 60
+51,Sopra Steria Group SA (SOPR),SOPR,68.85,0.65,8.54,2.02,-,-,0%,141.2,2.83B,19.88,1.4,7.01,2.40,20.271.782,Services informatiques,46603,6.6B,cac mid 60
+52,Spie SA (SPIE),SPIE,9.05,0.36,8.98,1.71,1.1%,-31.55%,0%,15.68,2.44B,35.49,1.55,0.44,0.61,157.697.734,Services de construction,47446,10.01B,cac mid 60
+53,Sartorius Stedim Biotech SA (STDM),STDM,13.66,17.27,227.24,21.95,0.11%,-6.8%,24.47%,293.0,27.64B,108.42,0.35,2.77,0.34,92.180.190,Matériel médical et fournitures,6690,1.6B,cac mid 60
+54,Tarkett (TKTT),TKTT,11.5,0.22,2.46,0.82,-,-,-,9.55,620.76M,15.59,1.21, - 0.51,,65.550.281,Produits en plastique et en caoutchouc,12950,4.23B,cac mid 60
+55,Télévision Française 1 SA (TFFP),TFFP,7.56,0.58,20.38,0.76,-,-,122.38%,5.85,1.21B,14.1,0.92,0.41,0.50,210.242.074,Audiovisuel et télévision par câble,3202,2.08B,cac mid 60
+56,Trigano SA (TRIA),TRIA,47.92,0.92,36.23,2.35,1.78%,25.99%,24.02%,111.5,2.17B,13.45,1.11,8.36,2,19.280.200,Produits de loisirs,8735,2.35B,cac mid 60
+57,Vallourec SA (VLLP),VLLP,49.05,0.06,-,0.41,-,-,-,20.67,229.65M,9.48,2.53, - 64.5,,11.445.379,Puits de pétrole - services et équipement,17401,5.67B,cac mid 60
+58,Virbac SA (VIRB),VIRB,64.97,1.74,15.25,3.01,-,-,0%,200.0,1.65B,22.86,0.87,8.57,,8.435.609,Biotechnologie et médicaments,4897,1.42B,cac mid 60
+59,Wendel (MWDP),MWDP,49.98,0.46,4.78,1.61,3.48%,6.01%,-,84.1,3.52B,25.09,1.26, - 6.76,2.80,43.784.389,Services aux entreprises,130621,11.9B,cac mid 60

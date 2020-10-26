@@ -1,0 +1,41 @@
+firme,price,market_cap,price_to_earnings,beta,earnings_per_share,dividend,shares_outstanding,sector,employees,revenue,indices
+Accor SA (ACCP),27.53,7.57B,18.43,1.06,1.49,1.05,270.932.350,Hôtels et motels,196020,6.03B,c
+Air Liquide SA (AIRP),120.05,55.21B,25.38,0.79,4.73,2.70,473.105.514,Fabrication de produits chimiques,67200,32.77B,c
+ArcelorMittal S.A. (MT),9.54,9.44B,N/A,2.07, - 2.23,0.26,1.012.079.421,Fer et acier,191000,1.55B,c
+Atos SE (ATOS),61.2,6.57B,15.97,0.92,3.83,1.4,108.632.710,Services informatiques,99906,17B,c
+AXA SA (AXAF),15.37,36.15B,10.11,1.36,1.52,1.43,2.386.592.828,Assurance (vie),99843,184.29B,c
+BNP Paribas SA (BNPP),26.75,33.06B,4.31,1.63,6.21,"3.10 (12.09%)</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Volume moyen (3m)</span><span class=""float_lang_base_2 bold"">6.752.390</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">PER</span><span class=""float_lang_base_2 bold"">4.31</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">Bêta</span><span class=""float_lang_base_2 bold"">1.63</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Variation sur 1 an</span><span class=""float_lang_base_2 bold""> -",1.248.591.040,Banques (money center),198816,69.57B,c
+Bouygues SA (BOUY),28.53,11.03B,9,0.87,3.17,1.70,379.828.120,Services de construction,133197,37.93B,c
+Capgemini SE (CAPP),75.38,12.82B,15.06,1.1,5,1.90,169.028.781,Logiciels et programmation,219314,20.86B,c
+Carrefour SA (CARR),14.66,11.7B,550.11,0.69,0.03,0.46,797.807.965,Détaillants (épicerie),321383,112.25B,c
+Crédit Agricole SA (CAGR),6.7,19.18B,4.49,1.69,1.49,"0.70 (10.46%)</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Volume moyen (3m)</span><span class=""float_lang_base_2 bold"">11.854.646</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">PER</span><span class=""float_lang_base_2 bold"">4.49</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">Bêta</span><span class=""float_lang_base_2 bold"">1.69</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Variation sur 1 an</span><span class=""float_lang_base_2 bold""> -",2.884.253.712,Banques régionales,73037,61.36B,c
+Danone SA (DANO),58.4,36.73B,19.78,0.68,2.95,2.10,648.871.267,Transformation alimentaire,102449,37.44B,c
+Dassault Systemes SE (DAST),121.65,33.21B,52.05,0.69,2.34,0.70,259.461.643,Logiciels et programmation,19361,5.89B,c
+Airbus Group SE (AIR),57.04,46.4B,N/A,1.74, - 1.76,1.53,782.310.505,Aérospatiale et défense,135978,70.48B,c
+EssilorLuxottica SA (ESLX),108.15,46.01B,44.3,0.78,2.44,2.04,436.779.219,Matériel médical et fournitures,150616,36.97B,c
+Orange SA (ORAN),11.33,30.16B,11.11,0.54,1.02,0.70,2.650.313.631,Services de communication,135619,63.36B,c
+Engie SA (ENGIE),9.36,22.66B,28.86,1.07,0.32,0.8,2.413.131.292,Fournisseurs d'électricité,171000,86.84B,c
+Hermès International SCA (HRMS),617.2,65.25B,42.43,0.61,14.55,4.55,104.207.783,Vêtements / accessoires,15417,10B,c
+Kering SA (PRTP),477,59.43B,27.6,1.1,17.28,11.50,126.279.322,Détaillants (vêtements),38068,23.12B,c
+L'Oréal SA (OREP),240,133.95B,36.02,0.53,6.66,4.25,558.117.205,Produits personnels et ménagers,86030,43.42B,c
+LVMH Moet Hennessy Louis Vuitton SE (LVMH),344.5,171.97B,24.2,1.02,14.23,6.80,503.652.374,Vêtements / accessoires,147715,78.75B,c
+Legrand SA (LEGD),59.16,16.2B,19.07,0.94,3.1,1.42,273.682.252,Instruments et commandes électroniques,38644,13.06B,c
+Compagnie Générale des Etablissements Michelin SCA (MICP),86.06,15.69B,8.91,1.03,9.66,2.00,179.002.555,Pneumatiques,127200,35.56B,c
+Pernod Ricard SA (PERP),135.3,35.3B,N/A,0.59,N/A,3.12,263.825.497,Boissons (alcoolisées),19140,9.18B,c
+Peugeot SA (PEUP),13.64,11.9B,4.01,1.64,3.4,1.23,894.884.478,Constructeurs automobiles et de camions,196885,110.16B,c
+Publicis Groupe (PUBP),29.28,6.9B,8.27,0.75,3.54,2.30,236.956.827,Publicité,73853,16.23B,c
+Renault SA (RENA),18.48,5.28B,N/A,1.54, - 0.54,1.10,291.022.000,Constructeurs automobiles et de camions,183002,83B,c
+Safran SA (SAF),72,35.56B,12.81,1.27,5.62,2.38,477.028.673,Aérospatiale et défense,95443,36.73B,c
+Compagnie de Saint-Gobain SA (SGOB),25.24,13.48B,9.77,1.21,2.58,1.38,542.087.728,Construction - matériaux et équipements,170643,63.56B,c
+Sanofi SA (SASY),84,102.43B,36.34,0.57,2.31,3.15,1.253.826.630,Biotechnologie et médicaments,100409,56.27B,c
+Schneider Electric SE (SCHN),81.98,45.11B,18.93,1.05,4.33,2.55,551.021.671,Instruments et commandes électroniques,151297,40.56B,c
+Societe Generale SA (SOGN),14.6,12.04B,4.77,1.66,3.06,"2.20 (14.25%)</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Volume moyen (3m)</span><span class=""float_lang_base_2 bold"">6.906.696</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">PER</span><span class=""float_lang_base_2 bold"">4.77</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">Bêta</span><span class=""float_lang_base_2 bold"">1.66</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Variation sur 1 an</span><span class=""float_lang_base_2 bold""> -",845.140.139,Banques régionales,138240,43.34B,c
+Sodexo SA (EXHO),65.32,9.32B,14.51,0.96,4.5,2.90,146.006.321,Restauration,470237,21.95B,c
+STMicroelectronics NV (STM),20.55,18.63B,68.41,1.25,0.31,0.21,887.810.197,Semi-conducteurs,43480,369.64M,c
+Thales (TCFP),74.22,15.25B,14.1,0.68,5.26,2.65,212.756.640,Matériel de communication,82605,26.8B,c
+Total SA (TOTF),34.27,86.52B,8.87,0.88,3.83,2.68,2.586.406.841,Activités pétrolières et gazières,107776,3.88B,c
+WFD Unibail Rodamco NV (URW),58.88,8.16B,7.55,1.46,7.79,"10.80 (21.43%)</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Volume moyen (3m)</span><span class=""float_lang_base_2 bold"">1.366.165</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">PER</span><span class=""float_lang_base_2 bold"">7.55</span></div><div class=""inlineblock""><span class=""float_lang_base_1"">Bêta</span><span class=""float_lang_base_2 bold"">1.46</span></div><div class=""first inlineblock""><span class=""float_lang_base_1"">Variation sur 1 an</span><span class=""float_lang_base_2 bold""> -",138.378.605,Opérations immobilières,3625,4.92B,c
+Veolia (VIE),18.77,10.24B,14.85,0.66,1.26,0.50,554.756.150,Services de gestion des déchets,178780,40.55B,c
+Vinci SA (SGEF),71.92,40.09B,12.37,0.83,5.81,3.05,554.745.990,Services de construction,222000,72.86B,c
+Vivendi SA (VIV),20.88,24.59B,16.1,0.73,1.3,0.60,1.170.575.000,Industrie cinématographique,43900,23.37B,c
+Worldline SA (WLN),56.82,10.56B,52.82,0.95,1.08,N/A,182.644.703,Services financiers aux consommateurs,11609,2.05B,c

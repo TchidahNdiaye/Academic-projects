@@ -1,0 +1,41 @@
+,firme,stock,book_to_market,price_to_sales,price_to_cash_flow,price_to_book,dividend_yield,g,payout_ratio,price,market_cap,price_to_earnings,beta,earnings_per_share,dividend,shares_outstanding,sector,employees,revenue,indices
+0,Accor SA (ACCP),ACCP,18.04,2.12,-,1.37,-,-,-,27.53,7.57B,18.43,1.06,1.49,1.05,270.932.350,Hôtels et motels,196020,6.03B,cac 40
+1,Air Liquide SA (AIRP),AIRP,38.82,3.14,73.15,3.63,1.91%,7.91%,51.48%,120.05,55.21B,25.38,0.79,4.73,2.70,473.105.514,Fabrication de produits chimiques,67200,32.77B,cac 40
+2,ArcelorMittal S.A. (MT),MT,29.92,0.25,6.83,0.37,-,-,-,9.54,9.44B,33.94,2.07, - 2.23,0.26,1.012.079.421,Fer et acier,191000,1.55B,cac 40
+3,Atos SE (ATOS),ATOS,65.55,0.69,8.94,1.1,-,-4.35%,27.11%,61.2,6.57B,15.97,0.92,3.83,1.4,108.632.710,Services informatiques,99906,17B,cac 40
+4,AXA SA (AXAF),AXAF,29.4,0.37,9.88,0.58,4.26%,-14.31%,124.8%,15.37,36.15B,10.11,1.36,1.52,1.43,2.386.592.828,Assurance (vie),99843,184.29B,cac 40
+5,BNP Paribas SA (BNPP),BNPP,89.34,-,-,0.4,-,-,0%,26.75,33.06B,4.31,1.63,6.21,3.1,1.248.591.040,Banques (money center),198816,69.57B,cac 40
+6,Bouygues SA (BOUY),BOUY,26.45,0.34,13.49,1.19,5.39%,2.04%,47.69%,28.53,11.03B,9.0,0.87,3.17,1.70,379.828.120,Services de construction,133197,37.93B,cac 40
+7,Capgemini SE (CAPP),CAPP,35.01,1.38,15.68,3.41,1.13%,-4.5%,36.07%,75.38,12.82B,15.06,1.1,5,1.90,169.028.781,Logiciels et programmation,219314,20.86B,cac 40
+8,Carrefour SA (CARR),CARR,11.49,0.16,8.15,1.23,1.63%,-31%,43.38%,14.66,11.7B,550.11,0.69,0.03,0.46,797.807.965,Détaillants (épicerie),321383,112.25B,cac 40
+9,Crédit Agricole SA (CAGR),CAGR,22.16,-,4.14,0.38,-,-,0%,6.7,19.18B,4.49,1.69,1.49,0.7,2.884.253.712,Banques régionales,73037,61.36B,cac 40
+10,Danone SA (DANO),DANO,25.17,1.61,32.25,2.31,3.61%,7.3%,71.91%,58.4,36.73B,19.78,0.68,2.95,2.10,648.871.267,Transformation alimentaire,102449,37.44B,cac 40
+11,Dassault Systemes SE (DAST),DAST,20.37,9.83,46.01,7.86,0.44%,9.72%,35.21%,121.65,33.21B,52.05,0.69,2.34,0.70,259.461.643,Logiciels et programmation,19361,5.89B,cac 40
+12,Airbus Group SE (AIR),AIR,1.69,0.95,417.32,41.96,-,-,-,57.04,46.4B,24.75,1.74, - 1.76,1.53,782.310.505,Aérospatiale et défense,135978,70.48B,cac 40
+13,EssilorLuxottica SA (ESLX),ESLX,77.34,3.29,32.36,1.44,-,14.13%,-,108.15,46.01B,44.3,0.78,2.44,2.04,436.779.219,Matériel médical et fournitures,150616,36.97B,cac 40
+14,Orange SA (ORAN),ORAN,12.08,0.6,-,0.8,5.19%,-5.9%,50.65%,11.33,30.16B,11.11,0.54,1.02,0.70,2.650.313.631,Services de communication,135619,63.36B,cac 40
+15,Engie SA (ENGIE),ENGIE,12.76,0.53,-,0.94,-,-,-,9.36,22.66B,28.86,1.07,0.32,0.8,2.413.131.292,Fournisseurs d'électricité,171000,86.84B,cac 40
+16,Hermès International SCA (HRMS),HRMS,60.61,13.16,71.33,12.52,0.6%,6.66%,42.75%,617.2,65.25B,42.43,0.61,14.55,4.55,104.207.783,Vêtements / accessoires,15417,10B,cac 40
+17,Kering SA (PRTP),PRTP,79.21,5.56,228.15,7.57,1.33%,20.26%,7.22%,477.0,59.43B,27.6,1.1,17.28,11.50,126.279.322,Détaillants (vêtements),38068,23.12B,cac 40
+18,L'Oréal SA (OREP),OREP,51.82,5.59,55.91,5.42,1.37%,5.27%,73.7%,240.0,133.95B,36.02,0.53,6.66,4.25,558.117.205,Produits personnels et ménagers,86030,43.42B,cac 40
+19,LVMH Moet Hennessy Louis Vuitton SE (LVMH),LVMH,71.11,4.58,46.95,5.99,1.13%,6.27%,29.59%,344.5,171.97B,24.2,1.02,14.23,6.80,503.652.374,Vêtements / accessoires,147715,78.75B,cac 40
+20,Legrand SA (LEGD),LEGD,18.19,3,26.11,3.85,1.92%,4.04%,50.73%,59.16,16.2B,19.07,0.94,3.1,1.42,273.682.252,Instruments et commandes électroniques,38644,13.06B,cac 40
+21,Compagnie Générale des Etablissements Michelin SCA (MICP),MICP,68.59,0.78,19.84,1.38,2.11%,-14.94%,88.33%,86.06,15.69B,8.91,1.03,9.66,2.00,179.002.555,Pneumatiques,127200,35.56B,cac 40
+22,Pernod Ricard SA (PERP),PERP,53.15,-,-,2.65,2.21%,-,-,135.3,35.3B,108.82,0.59,,3.12,263.825.497,Boissons (alcoolisées),19140,9.18B,cac 40
+23,Peugeot SA (PEUP),PEUP,21.83,0.24,5.05,0.75,-,-,0%,13.64,11.9B,4.01,1.64,3.4,1.23,894.884.478,Constructeurs automobiles et de camions,196885,110.16B,cac 40
+24,Publicis Groupe (PUBP),PUBP,29.49,0.63,3.93,1.01,3.86%,-14.66%,43.82%,29.28,6.9B,8.27,0.75,3.54,2.30,236.956.827,Publicité,73853,16.23B,cac 40
+25,Renault SA (RENA),RENA,88.99,0.15,-,0.27,-,-,-,18.48,5.28B,12.05,1.54, - 0.54,1.10,291.022.000,Constructeurs automobiles et de camions,183002,83B,cac 40
+26,Safran SA (SAF),SAF,28.48,1.8,29.31,3.42,-,-,150.64%,72.0,35.56B,12.81,1.27,5.62,2.38,477.028.673,Aérospatiale et défense,95443,36.73B,cac 40
+27,Compagnie de Saint-Gobain SA (SGOB),SGOB,33.3,0.51,15.8,1.1,-,3.08%,264.34%,25.24,13.48B,9.77,1.21,2.58,1.38,542.087.728,Construction - matériaux et équipements,170643,63.56B,cac 40
+28,Sanofi SA (SASY),SASY,50.5,2.95,53.06,1.75,3.57%,2.1%,35.46%,84.0,102.43B,36.34,0.57,2.31,3.15,1.253.826.630,Biotechnologie et médicaments,100409,56.27B,cac 40
+29,Schneider Electric SE (SCHN),SCHN,37.99,2.38,29.18,2.82,2.38%,7.72%,63.81%,81.98,45.11B,18.93,1.05,4.33,2.55,551.021.671,Instruments et commandes électroniques,151297,40.56B,cac 40
+30,Societe Generale SA (SOGN),SOGN,71.82,-,4.79,0.18,-,-,-,14.6,12.04B,4.77,1.66,3.06,2.2,845.140.139,Banques régionales,138240,43.34B,cac 40
+31,Sodexo SA (EXHO),EXHO,28.14,0.43,21.07,2.36,4.36%,6.51%,63.33%,65.32,9.32B,14.51,0.96,4.5,2.90,146.006.321,Restauration,470237,21.95B,cac 40
+32,STMicroelectronics NV (STM),STM,6.87,3.01,64.59,3.91,0.61%,-11.21%,12.84%,20.55,18.63B,68.41,1.25,0.31,0.21,887.810.197,Semi-conducteurs,43480,369.64M,cac 40
+33,Thales (TCFP),TCFP,22.77,0.81,18.04,2.99,0.88%,-27.89%,0%,74.22,15.25B,14.1,0.68,5.26,2.65,212.756.640,Matériel de communication,82605,26.8B,cac 40
+34,Total SA (TOTF),TOTF,33.12,0.69,16.23,0.97,8.33%,5.26%,-,34.27,86.52B,8.87,0.88,3.83,2.68,2.586.406.841,Activités pétrolières et gazières,107776,3.88B,cac 40
+35,WFD Unibail Rodamco NV (URW),URW,169.91,1.81,14.09,0.24,13.5%,-19.1%,-,58.88,8.16B,7.55,1.46,7.79,10.8,138.378.605,Opérations immobilières,3625,4.92B,cac 40
+36,Veolia (VIE),VIE,9.54,0.41,14.28,1.98,2.65%,-14.5%,212.65%,18.77,10.24B,14.85,0.66,1.26,0.50,554.756.150,Services de gestion des déchets,178780,40.55B,cac 40
+37,Vinci SA (SGEF),SGEF,33.71,1.04,14.4,2.3,1.62%,-0.96%,43.15%,71.92,40.09B,12.37,0.83,5.81,3.05,554.745.990,Services de construction,222000,72.86B,cac 40
+38,Vivendi SA (VIV),VIV,14.64,1.8,132.84,1.68,2.44%,14.47%,4.12%,20.88,24.59B,16.1,0.73,1.3,0.60,1.170.575.000,Industrie cinématographique,43900,23.37B,cac 40
+39,Worldline SA (WLN),WLN,17.92,6.05,46.59,4.27,-,-,0%,56.82,10.56B,52.82,0.95,1.08,,182.644.703,Services financiers aux consommateurs,11609,2.05B,cac 40
