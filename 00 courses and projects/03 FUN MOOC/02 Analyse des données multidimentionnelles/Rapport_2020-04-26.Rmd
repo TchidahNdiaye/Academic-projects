@@ -1,0 +1,271 @@
+---
+title: "Analyse en Composantes Principales"
+author: "Jeu de données decathlon"
+output:
+  html_document: default
+---
+Ce jeu de données contient 41 individus et 13 variables, 2 variables quantitatives sont illustratives, 1 variable qualitative est illustrative.
+
+- - -
+
+```{r, echo = FALSE}
+library(FactoMineR)
+load('D:/Documents/Workspace.RData')
+```
+### 1. Observation d'individus extrêmes
+L'analyse des graphes ne révèle aucun individu singulier.
+
+- - -
+
+### 2. Distribution de l'inertie
+L'inertie des axes factoriels indique d'une part si les variables sont structurées et suggère d'autre part le nombre judicieux de composantes principales à étudier.
+
+Les 2 premiers axes de l' analyse expriment **50.09%** de l'inertie totale du jeu de données ; cela signifie que 50.09% de la variabilité totale du nuage des individus (ou des variables) est représentée dans ce plan.
+C'est un pourcentage assez important, et le premier plan représente donc convenablement la variabilité contenue dans une grande part du jeu de données actif.
+Cette valeur est supérieure à la valeur référence de **37.95%**, la variabilité expliquée par ce plan est donc significative
+(cette intertie de référence est le quantile 0.95-quantile de la distribution des pourcentages d'inertie obtenue en simulant 2051 jeux de données aléatoires de dimensions comparables sur la base d'une distribution normale).
+
+Du fait de ces observations, il serait tout de même probablement préférable de considérer également dans l'analyse les dimensions supérieures ou égales à la troisième.
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+par(mar = c(2.6, 4.1, 1.1, 2.1))
+ggplot2::ggplot(cbind.data.frame(x=1:nrow(res$eig),y=res$eig[,2])) + ggplot2::aes(x=x, y=y)+ ggplot2::geom_col(fill="blue") + ggplot2::xlab("Dimension") + ggplot2::ylab("Pourcentage d'inertie") + ggplot2::ggtitle("Décomposition de l'inertie totale") + ggplot2::theme_light() + ggplot2::theme(plot.title = ggplot2::element_text(hjust =0.5)) + ggplot2::scale_x_continuous(breaks=1:nrow(res$eig))
+```
+
+**Figure 2 - Décomposition de l'inertie totale**
+
+Une estimation du nombre pertinent d'axes à interpréter suggère de restreindre l'analyse à la description des 3 premiers axes.
+Ces composantes révèlent un taux d'inertie supérieur à celle du quantile 0.95-quantile de distributions aléatoires (64.14% contre 51.68%).
+Cette observation suggère que seuls ces axes sont porteurs d'une véritable information.
+En conséquence, la description de l'analyse sera restreinte à ces seuls axes.
+
+- - -
+
+### 3. Description du plan 1:2
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+c("Casarsa", "Karpov", "Drews", "Sebrle", "BOURGUIGNON", "Clay", 
+"NOOL", "YURKOV", "Parkhomenko", "Korkizoglou", "Warners", "Lorenzo", 
+"Uldal", "Macey", "WARNERS", "Averyanov", "Nool", "MARTINEAU", 
+"Karlivans")
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.PCA(res, select = drawn, axes = c(1,2), choix = 'ind', invisible = 'quali', title = '', cex = cex)
+```
+
+**Figure 3.1 - Graphe des individus (ACP)**
+*Les individus libellés sont ceux ayant la plus grande contribution à la construction du plan.*
+
+La probabilité critique du test de Wilks indique la variable dont les modalités sépare au mieux les individus sur le plan (i.e. qui explique au mieux les distances entre individus).
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+wilks.p <-
+c(Competition = 0.36631103310841134)
+wilks.p
+```
+Il n'y a qu'une unique variable qualitative possible pour illustrer les distances entre individus : *Competition*.
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+sample = sample(rownames(res$call$X), length(rownames(res$call$X)))
+res$call$X = res$call$X[sample,]
+res$ind$coord = res$ind$coord[sample[!sample %in% rownames(res$ind.sup$coord)],]
+res$ind.sup$coord = res$ind.sup$coord[sample[sample %in% rownames(res$ind.sup$coord)],]
+drawn <-
+c("Casarsa", "Karpov", "Drews", "Sebrle", "BOURGUIGNON", "Clay", 
+"NOOL", "YURKOV", "Parkhomenko", "Korkizoglou", "Warners", "Lorenzo", 
+"Uldal", "Macey", "WARNERS", "Averyanov", "Nool", "MARTINEAU", 
+"Karlivans")
+hab <-
+"Competition"
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plotellipses(res, axes = 1:2, select = drawn, keepvar = hab, title = '', cex = cex)
+```
+
+**Figure 3.2 - Graphe des individus (ACP)**
+*Les individus libellés sont ceux ayant la plus grande contribution à la construction du plan.*
+*Les individus sont colorés selon leur appartenance aux modalités de la variable* Competition.
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+c("Points", "400m", "Poids", "Disque", "Longueur", "100m", "110m H"
+)
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.PCA(res, select = drawn, axes = 1:2, choix = 'var', title = '', cex = cex)
+```
+
+**Figure 3.3 - Graphe des variables (ACP)**
+*Les variables en noir sont les variables actives, celles en bleu sont les variables quantitatives supplémentaires (illustratives).*
+*Les variables libellées sont celles les mieux représentées sur le plan.*
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+"Decastar"
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.PCA(res, select = drawn, axes = 1:2, choix = 'ind', invisible = c('ind', 'ind.sup'), title = '', cex = cex)
+```
+
+**Figure 3.4 - Graphe des modalités (ACP)**
+*Les facteurs libellés sont ceux les mieux représentés sur le plan.*
+
+* * *
+
+La **dimension 1** oppose des individus tels que *Karpov*, *Sebrle*, *Clay* et *Macey* (à droite du graphe, caractérisés par une coordonnée fortement positive sur l'axe)
+à des individus comme *BOURGUIGNON*, *Uldal*, *Lorenzo*, *NOOL* et *Karlivans* (à gauche du graphe, caractérisés par une coordonnée fortement négative sur l'axe).
+
+Le groupe auquel les individus *Karpov*, *Sebrle*, *Clay* et *Macey* appartiennent (caractérisés par une coordonnée positive sur l'axe) partage :
+
+- de fortes valeurs pour les variables *Points*, *Hauteur*, *Disque*, *Poids* et *Longueur* (de la plus extrême à la moins extrême).
+- de faibles valeurs pour les variables *100m*, *Classement*, *110m.H* et *400m* (de la plus extrême à la moins extrême).
+
+Le groupe auquel les individus *BOURGUIGNON*, *Uldal*, *Lorenzo*, *NOOL* et *Karlivans* appartiennent (caractérisés par une coordonnées négative sur l'axe) partage :
+
+- de fortes valeurs pour les variables *110m.H*, *100m* et *Classement* (de la plus extrême à la moins extrême).
+- de faibles valeurs pour les variables *Poids*, *Points*, *Hauteur* et *Disque* (de la plus extrême à la moins extrême).
+
+Notons que la variable *Points* est extrêmement corrélée à cette dimension (corrélation de 0.91). Cette variable pourrait donc résumer à elle seule la dimension 1.
+
+* * *
+
+La **dimension 2** oppose des individus tels que *Casarsa*, *YURKOV* et *Parkhomenko* (en haut du graphe, caractérisés par une coordonnées fortement positive sur l'axe)
+à des individus comme *Warners*, *Drews* et *WARNERS* (en bas du graphe, caractérisés par une coordonnées fortement négative sur l'axe).
+
+Le groupe auquel les individus *Casarsa*, *YURKOV* et *Parkhomenko* appartiennent (caractérisés par une coordonnée positive sur l'axe) partage :
+
+- de fortes valeurs pour la variable *400m*.
+- de faibles valeurs pour la variable *Longueur*.
+
+Le groupe auquel les individus *Warners*, *Drews* et *WARNERS* appartiennent (caractérisés par une coordonnées négative sur l'axe) partage :
+
+- de fortes valeurs pour la variable *Perche*.
+- de faibles valeurs pour la variable *110m.H*.
+
+
+- - -
+
+### 4. Description de la dimension 3
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+c("Korkizoglou", "Nool", "BERNARD", "KARPOV", "Sebrle", "Terek", 
+"CLAY", "ZSIVOCZKY", "Macey", "Parkhomenko", "Smith", "McMULLEN", 
+"Clay", "Bernard", "Barras", "Zsivoczky", "Karpov", "Lorenzo", 
+"Karlivans")
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.PCA(res, select = drawn, axes = c(3,4), choix = 'ind', invisible = 'quali', title = '', cex = cex)
+```
+
+**Figure 4.1 - Graphe des individus (ACP)**
+*Les individus libellés sont ceux ayant la plus grande contribution à la construction du plan.*
+
+La probabilité critique du test de Wilks indique la variable dont les modalités sépare au mieux les individus sur le plan (i.e. qui explique au mieux les distances entre individus).
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+wilks.p <-
+c(Competition = 0.49690295803905093)
+wilks.p
+```
+Il n'y a qu'une unique variable qualitative possible pour illustrer les distances entre individus : *Competition*.
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+sample = sample(rownames(res$call$X), length(rownames(res$call$X)))
+res$call$X = res$call$X[sample,]
+res$ind$coord = res$ind$coord[sample[!sample %in% rownames(res$ind.sup$coord)],]
+res$ind.sup$coord = res$ind.sup$coord[sample[sample %in% rownames(res$ind.sup$coord)],]
+drawn <-
+c("Korkizoglou", "Nool", "BERNARD", "KARPOV", "Sebrle", "Terek", 
+"CLAY", "ZSIVOCZKY", "Macey", "Parkhomenko", "Smith", "McMULLEN", 
+"Clay", "Bernard", "Barras", "Zsivoczky", "Karpov", "Lorenzo", 
+"Karlivans")
+hab <-
+"Competition"
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plotellipses(res, axes = 3:4, select = drawn, keepvar = hab, title = '', cex = cex)
+```
+
+**Figure 4.2 - Graphe des individus (ACP)**
+*Les individus libellés sont ceux ayant la plus grande contribution à la construction du plan.*
+*Les individus sont colorés selon leur appartenance aux modalités de la variable* Competition.
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+c("Perche", "Javelot", "1500m", "110m H", "Hauteur")
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.PCA(res, select = drawn, axes = 3:4, choix = 'var', title = '', cex = cex)
+```
+
+**Figure 4.3 - Graphe des variables (ACP)**
+*Les variables en noir sont les variables actives, celles en bleu sont les variables quantitatives supplémentaires (illustratives).*
+*Les variables libellées sont celles les mieux représentées sur le plan.*
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+"JO"
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.PCA(res, select = drawn, axes = 3:4, choix = 'ind', invisible = c('ind', 'ind.sup'), title = '', cex = cex)
+```
+
+**Figure 4.4 - Graphe des modalités (ACP)**
+*Les facteurs libellés sont ceux les mieux représentés sur le plan.*
+
+* * *
+
+La **dimension 3** oppose des individus tels que *KARPOV*, *Korkizoglou*, *Terek* et *CLAY* (à droite du graphe, caractérisés par une coordonnée fortement positive sur l'axe)
+à des individus comme *ZSIVOCZKY*, *Barras*, *Zsivoczky*, *McMULLEN*, *Macey*, *Bernard* et *Smith* (à gauche du graphe, caractérisés par une coordonnée fortement négative sur l'axe).
+
+Le groupe auquel les individus *KARPOV*, *Korkizoglou*, *Terek* et *CLAY* appartiennent (caractérisés par une coordonnée positive sur l'axe) partage :
+
+- de fortes valeurs pour la variable *1500m*.
+- de faibles valeurs pour la variable *Javelot*.
+
+Le groupe auquel les individus *ZSIVOCZKY*, *Barras*, *Zsivoczky*, *McMULLEN*, *Macey*, *Bernard* et *Smith* appartiennent (caractérisés par une coordonnées négative sur l'axe) partage :
+
+- de faibles valeurs pour les variables *Perche* et *1500m* (de la plus extrême à la moins extrême).
+
+
+- - -
+
+### 5. Classification
+
+```{r, echo = FALSE}
+res.hcpc = HCPC(res, nb.clust = -1, graph = FALSE)
+```
+
+```{r, echo = FALSE, fig.align = 'center', fig.height = 3.5, fig.width = 5.5}
+drawn <-
+c("Casarsa", "Karpov", "Drews", "Sebrle", "BOURGUIGNON", "Clay", 
+"NOOL", "YURKOV", "Parkhomenko", "Korkizoglou", "Warners", "Lorenzo", 
+"Uldal", "Macey", "WARNERS", "Averyanov", "Nool", "MARTINEAU", 
+"Karlivans")
+par(mar = c(4.1, 4.1, 1.1, 2.1))
+plot.HCPC(res.hcpc, choice = 'map', draw.tree = FALSE, select = drawn, title = '')
+```
+
+**Figure 5 - Classification Ascendante Hiérachique des individus.**
+*La classification réalisée sur les individus fait apparaître 4 classes.*
+
+
+La **classe 1** est composée d'individus tels que *Parkhomenko*, *Lorenzo*, *Karlivans*, *Uldal*, *Casarsa*, *YURKOV*, *MARTINEAU*, *NOOL* et *BOURGUIGNON*. Ce groupe est caractérisé par :
+
+-  des variables dont les valeurs ne diffèrent pas significativement de la moyenne.
+
+La **classe 2** est composée d'individus tels que *Warners*, *Nool*, *Averyanov*, *Drews*, *Korkizoglou* et *WARNERS*. Ce groupe est caractérisé par :
+
+-  des variables dont les valeurs ne diffèrent pas significativement de la moyenne.
+
+La **classe 3** est composée d'individus tels que *Macey*. Ce groupe est caractérisé par :
+
+-  des variables dont les valeurs ne diffèrent pas significativement de la moyenne.
+
+La **classe 4** est composée d'individus tels que *Sebrle*, *Clay* et *Karpov*. Ce groupe est caractérisé par :
+
+-  des variables dont les valeurs ne diffèrent pas significativement de la moyenne.
+
+- - -
+
+## Annexes
+
+
+```{r, comment = ''}
+res.hcpc$desc.var
+```
+**Figure 6 - Liste des variables caractéristiques des clusters de la classification.**
+
+
