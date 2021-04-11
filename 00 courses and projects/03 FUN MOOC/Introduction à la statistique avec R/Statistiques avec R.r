@@ -9,7 +9,6 @@ library(psy)
 library(survival)
 
 
-install.packages("scorecard")
 
 # importation du fichier csv
 smp <- read.csv2("smp1.csv")
@@ -589,7 +588,7 @@ table(q4$prof)
 
 summary(q4$n.enfant)
 
-281.2262/158
+# 281.2262/158
 # La réponse à la question 4 est que le rapport est suppérieur à 4
 
 # CONVERSION DES VARIABLES QUALITATIVES DE LA BASE
