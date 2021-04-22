@@ -4,10 +4,10 @@
     Auteur : Tchidah Ndiaye
     Date : Avril 2020
     But du programme :
-    Ce programme python sert à calculer les résultats d'une équation du second degré.
-    Entrée : Valeur des coefficients a, b et c de l'équation du sécond degré du type ax2 + bx + c.
+    Ce programme python sert Ã  calculer les rÃ©sultats d'une Ã©quation du second degrÃ©.
+    EntrÃ©e : Valeur des coefficients a, b et c de l'Ã©quation du sÃ©cond degrÃ© du type ax2 + bx + c.
     Sortie : Valeur du discriminant : Delta, valeurs des solutions imaginaires (nombre complexe)
-             lorsque delta est négatif, de la solution unique lorsque delta est nul et des solutions
+             lorsque delta est nÃ©gatif, de la solution unique lorsque delta est nul et des solutions
              pour delta positifs.
 '''
 import os                                                              # Importation des librairies
@@ -20,18 +20,18 @@ delta = (b ** 2) - (4 * a * c)                                         # Calcul 
 racine = delta ** 0.5
 
 if delta < 0:
-    print("L'équation ne possède pas solution réelle mais des solutions imaginaires z1 et z2.")
+    print("L'Ã©quation ne possÃ¨de pas solution rÃ©elle mais des solutions imaginaires z1 et z2.")
     z1 = (-b - complex(racine))/(2 * a)
     z2 = (-b + complex(racine))/(2 * a)
     print("z1 = ",z1,"\nz2 = ",z2)                                     # Affichage de la solution imaginaire
 elif delta == 0:
-    print("L'équation possède une racine (une solution unique)")
+    print("L'Ã©quation possÃ¨de une racine (une solution unique)")
     x0 = (-b)/(2 * a)
-    print("x = ", x0)                                                  # Affichage des résultats pour delta nul
+    print("x = ", x0)                                                  # Affichage des rÃ©sultats pour delta nul
 else:
-    print("L'équation possède deux racines distinctes x1 et x2")
+    print("L'Ã©quation possÃ¨de deux racines distinctes x1 et x2")
     x1 = (-b - racine)/(2 * a)
     x2 = (-b + racine)/(2 * a)
-    print("x1 = ",x1,"\nx2 = ", x2)                                     # Affichage des résultats pour delta positif
-print("La valeur du discriminant est : ",delta,"\nEt sa racine carrée est : ",racine)
+    print("x1 = ",x1,"\nx2 = ", x2)                                     # Affichage des rÃ©sultats pour delta positif
+print("La valeur du discriminant est : ",delta,"\nEt sa racine carrÃ©e est : ",racine)
 os.system("pause")
