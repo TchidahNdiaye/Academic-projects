@@ -25,8 +25,5 @@ else:
     
 '''
 distance = 3844.0e5
-nombre_pliages = 0
-
-
 
 '''
