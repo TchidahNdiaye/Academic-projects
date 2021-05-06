@@ -24,5 +24,5 @@ else:
     print("Polyèdre non connu")
     
 '''
-distance = 3844.0e5
+distance = 3844.0e
 
