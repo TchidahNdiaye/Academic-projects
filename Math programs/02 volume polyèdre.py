@@ -22,3 +22,13 @@ elif polyedre == "I":
     print(((5 * (3 + sqrt(5))) / 12) * (a ** 3))
 else:
     print("Polyèdre non connu")
+    
+'''
+distance = 3844.0e5
+nombre_pliages = 0
+epaisseur = 0.0001
+while epaisseur < distance:
+    nombre_pliages = nombre_pliages + 1
+    epaisseur = 2 * epaisseur
+print("Le nombre de pliage nécessaire :", nombre_pliages)
+'''
