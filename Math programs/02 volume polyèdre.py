@@ -29,6 +29,4 @@ nombre_pliages = 0
 epaisseur = 0.0001
 while epaisseur < distance:
     nombre_pliages = nombre_pliages + 1
-print("Le nombre de pliage nécessa
-
 '''
