@@ -26,5 +26,7 @@ else:
 '''
 distance = 3844.0e5
 nombre_pliages = 0
-epaisseur = 0.0001
+
+
+
 '''
