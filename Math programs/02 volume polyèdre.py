@@ -22,3 +22,6 @@ elif polyedre == "I":
     print(((5 * (3 + sqrt(5))) / 12) * (a ** 3))
 else:
     print("Polyèdre non connu")
+    
+    
+    #ijonziubiuz
