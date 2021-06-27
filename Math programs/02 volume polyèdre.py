@@ -24,4 +24,4 @@ else:
     print("Polyèdre non connu")
     
     
-    #ijonziubiuz
+    #ijon
