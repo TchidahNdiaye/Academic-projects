@@ -25,5 +25,4 @@ else:
     
     
     #ijonziubiuz
-    # jniunaiuniu
-    #
+    # jniuna
