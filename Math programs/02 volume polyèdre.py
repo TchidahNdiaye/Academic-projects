@@ -25,5 +25,4 @@ else:
     
     
     #ijon
-    # jnziuuzujzukjkkj
-    un
+    # jnzi
