@@ -1,5 +1,5 @@
 /******************************************************************************
- Programme : DQ_01_SOURCES_PAQUETS.sas      (programme 1 sur 6 - dispositif DQ LGD / provisions)
+ Programme : DQ_01_SOURCES_PAQUETS.sas   str    (programme 1 sur 6 - dispositif DQ LGD / provisions)
  Etape CDC : Etape 1 - Sources et paquets mensuels
  Version   : v1.2
  Objet     : Configuration et lancement, parametres et referentiels, collecte des paquets mensuels M et M-1 (RAW puis STG), manifeste.
