@@ -1,0 +1,194 @@
+MESURES DAX – VAGUE 1 
+
+NOMS DE TABLES :
+- 'Score DQ des 15 données'
+- 'Dimensions DQ_202609'
+- 'Resultats_DQ_202609'
+
+PRÉREQUIS : créer les dimensions DIM_ARRETE, DIM_CDE, DIM_DIMENSION, DIM_MODELE,
+DIM_SEVERITE, DIM_FEU (et éventuellement DIM_VARIABLE), puis les relations 1:* à sens unique.
+DIM_ARRETE[arrete] doit porter le rôle M ou M-1, avec 202609 = M et 202608 = M-1.
+
+============================================================
+D1 – SYNTHÈSE DQ
+============================================================
+
+Score DQ pondéré =
+DIVIDE(
+    SUMX(
+        'Score DQ des 15 données',
+        'Score DQ des 15 données'[score]
+            * 'Score DQ des 15 données'[poids]
+    ),
+    SUM('Score DQ des 15 données'[poids])
+)
+
+Score DQ M =
+CALCULATE([Score DQ pondéré], DIM_ARRETE[role] = "M")
+
+Score DQ M-1 =
+CALCULATE([Score DQ pondéré], DIM_ARRETE[role] = "M-1")
+
+Ecart score DQ (pt) =
+([Score DQ M] - [Score DQ M-1]) * 100
+
+Score CDE M =
+CALCULATE(
+    MAX('Score DQ des 15 données'[score]),
+    DIM_ARRETE[role] = "M"
+)
+
+Score CDE M-1 =
+CALCULATE(
+    MAX('Score DQ des 15 données'[score]),
+    DIM_ARRETE[role] = "M-1"
+)
+
+Degradation CDE (pt) =
+([Score CDE M-1] - [Score CDE M]) * 100
+
+Nb CDE =
+DISTINCTCOUNT('Score DQ des 15 données'[cde_no])
+
+Nb CDE en alerte M =
+CALCULATE(
+    [Nb CDE],
+    DIM_ARRETE[role] = "M",
+    'Score DQ des 15 données'[feu] IN {"ORANGE", "ROUGE"}
+)
+
+Nb CDE rouges M =
+CALCULATE(
+    [Nb CDE],
+    DIM_ARRETE[role] = "M",
+    'Score DQ des 15 données'[feu] = "ROUGE"
+)
+
+Nb CDE verts M =
+CALCULATE(
+    [Nb CDE],
+    DIM_ARRETE[role] = "M",
+    'Score DQ des 15 données'[feu] = "VERT"
+)
+
+Couleur feu CDE =
+SWITCH(
+    SELECTEDVALUE('Score DQ des 15 données'[feu]),
+    "VERT", "#2E9E6F",
+    "ORANGE", "#E3A008",
+    "ROUGE", "#D9534F",
+    "#C3CCDB"
+)
+
+============================================================
+D2 – DONNÉES ET DIMENSIONS
+============================================================
+
+Taux conformité nombre =
+DIVIDE(
+    SUM('Dimensions DQ_202609'[nbre_ok]),
+    SUM('Dimensions DQ_202609'[nbre_total])
+)
+
+Taux conformité nombre M =
+CALCULATE([Taux conformité nombre], DIM_ARRETE[role] = "M")
+
+Taux conformité nombre M-1 =
+CALCULATE([Taux conformité nombre], DIM_ARRETE[role] = "M-1")
+
+Ecart taux nombre (pt) =
+([Taux conformité nombre M] - [Taux conformité nombre M-1]) * 100
+
+Taux conformité exposition =
+DIVIDE(
+    SUM('Dimensions DQ_202609'[expo_ok_MEUR]),
+    SUM('Dimensions DQ_202609'[expo_total_MEUR])
+)
+
+Taux conformité exposition M =
+CALCULATE([Taux conformité exposition], DIM_ARRETE[role] = "M")
+
+Anomalies nombre M (Dimensions) =
+CALCULATE(
+    SUM('Dimensions DQ_202609'[nbre_ko_ano]),
+    DIM_ARRETE[role] = "M"
+)
+
+Exposition KO cumulée M (M€) =
+CALCULATE(
+    SUM('Dimensions DQ_202609'[expo_ko_ano]),
+    DIM_ARRETE[role] = "M"
+)
+
+Couleur cellule DQ M =
+VAR TauxCellule = [Taux conformité nombre M]
+VAR NbRouge =
+    CALCULATE(
+        COUNTROWS('Dimensions DQ_202609'),
+        'Dimensions DQ_202609'[statut] = "ROUGE",
+        DIM_ARRETE[role] = "M"
+    )
+VAR NbOrange =
+    CALCULATE(
+        COUNTROWS('Dimensions DQ_202609'),
+        'Dimensions DQ_202609'[statut] = "ORANGE",
+        DIM_ARRETE[role] = "M"
+    )
+RETURN
+IF(
+    ISBLANK(TauxCellule), BLANK(),
+    SWITCH(TRUE(), NbRouge > 0, "#D9534F",
+                   NbOrange > 0, "#E3A008",
+                   "#2E9E6F")
+)
+
+============================================================
+D4 – ANOMALIES
+============================================================
+
+Occurrences KO =
+SUM('Resultats_DQ_202609'[nbre_ko_ano])
+
+Occurrences KO M =
+CALCULATE([Occurrences KO], DIM_ARRETE[role] = "M")
+
+Occurrences KO M-1 =
+CALCULATE([Occurrences KO], DIM_ARRETE[role] = "M-1")
+
+Ecart occurrences KO =
+[Occurrences KO M] - [Occurrences KO M-1]
+
+Taux KO nombre =
+DIVIDE(
+    SUM('Resultats_DQ_202609'[nbre_ko_ano]),
+    SUM('Resultats_DQ_202609'[nbre_total])
+)
+
+Taux KO nombre M =
+CALCULATE([Taux KO nombre], DIM_ARRETE[role] = "M")
+
+Exposition KO cumulée (M€) =
+SUM('Resultats_DQ_202609'[expo_ko_ano])
+
+Exposition KO cumulée M (M€) =
+CALCULATE(
+    [Exposition KO cumulée (M€)],
+    DIM_ARRETE[role] = "M"
+)
+
+Lignes de contrôle KO M =
+CALCULATE(
+    COUNTROWS('Resultats_DQ_202609'),
+    DIM_ARRETE[role] = "M",
+    'Resultats_DQ_202609'[nbre_ko_ano] > 0
+)
+
+NOTES :
+1. Vérifier l'échelle de [score] : 100 % doit généralement être stocké comme 1.
+2. Ne pas remplacer les valeurs manquantes par zéro.
+3. Ne pas moyenner les colonnes taux_nb/taux_enc ; recalculer les ratios à partir des sommes,
+   après validation du grain et des dénominateurs.
+4. Les sommes nbre_ko_ano sont des occurrences de contrôles, pas nécessairement des contrats uniques.
+5. Les sommes expo_ko_ano peuvent être redondantes si une même exposition échoue à plusieurs contrôles.
+6. Les captures ne montrent pas RULE_ID, CAUSE_RACINE ou un statut de cycle de vie ; ne pas
+   prétendre reproduire ces indicateurs sans les publier dans la source SAS.
