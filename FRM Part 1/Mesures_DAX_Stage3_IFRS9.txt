@@ -1,0 +1,83 @@
+/* MESURES DAX - PAGE D'INTRODUCTION STAGE 3 IFRS 9
+   Hypotheses : tables STG3_AGG_MODELE, STG3_PONT, dimensions DIM_ARRETE,
+   DIM_SCOPE_RISQUE et DIM_MODELE sont chargees et reliees en etoile.
+   Les montants source sont en EUR ; le format d'affichage est en MEUR.
+*/
+
+EAD (EUR) = SUM(STG3_AGG_MODELE[EAD_EUR])
+Provision (EUR) = SUM(STG3_AGG_MODELE[PROVISION_EUR])
+Nb contrats = SUM(STG3_AGG_MODELE[NB_CONTRATS])
+
+EAD M (MEUR) =
+CALCULATE([EAD (EUR)], DIM_ARRETE[ROLE] = "M") / 1000000
+
+EAD M-1 (MEUR) =
+CALCULATE([EAD (EUR)], DIM_ARRETE[ROLE] = "M-1") / 1000000
+
+Variation EAD (MEUR) = [EAD M (MEUR)] - [EAD M-1 (MEUR)]
+Variation EAD (%) = DIVIDE([Variation EAD (MEUR)], [EAD M-1 (MEUR)])
+
+Provision M (MEUR) =
+CALCULATE([Provision (EUR)], DIM_ARRETE[ROLE] = "M") / 1000000
+
+Provision M-1 (MEUR) =
+CALCULATE([Provision (EUR)], DIM_ARRETE[ROLE] = "M-1") / 1000000
+
+Variation provision (MEUR) = [Provision M (MEUR)] - [Provision M-1 (MEUR)]
+Variation provision (%) = DIVIDE([Variation provision (MEUR)], [Provision M-1 (MEUR)])
+
+Nb contrats M = CALCULATE([Nb contrats], DIM_ARRETE[ROLE] = "M")
+Nb contrats M-1 = CALCULATE([Nb contrats], DIM_ARRETE[ROLE] = "M-1")
+Variation contrats = [Nb contrats M] - [Nb contrats M-1]
+
+LGDD ponderee M =
+DIVIDE(
+    CALCULATE(SUM(STG3_AGG_MODELE[LGDD_NUM]), DIM_ARRETE[ROLE] = "M"),
+    CALCULATE(SUM(STG3_AGG_MODELE[LGDD_DEN_EUR]), DIM_ARRETE[ROLE] = "M")
+)
+
+LGDD ponderee M-1 =
+DIVIDE(
+    CALCULATE(SUM(STG3_AGG_MODELE[LGDD_NUM]), DIM_ARRETE[ROLE] = "M-1"),
+    CALCULATE(SUM(STG3_AGG_MODELE[LGDD_DEN_EUR]), DIM_ARRETE[ROLE] = "M-1")
+)
+
+Variation LGDD (points) = ([LGDD ponderee M] - [LGDD ponderee M-1]) * 100
+
+Part EAD M modele (%) =
+DIVIDE(
+    [EAD M (MEUR)],
+    CALCULATE([EAD M (MEUR)], REMOVEFILTERS(DIM_MODELE))
+)
+
+Part contrats M modele (%) =
+DIVIDE(
+    [Nb contrats M],
+    CALCULATE([Nb contrats M], REMOVEFILTERS(DIM_MODELE))
+)
+
+Valeur waterfall EAD (MEUR) =
+SUM(STG3_PONT[EAD_PONT_EUR]) / 1000000
+
+Valeur waterfall provisions (MEUR) =
+SUM(STG3_PONT[PROV_PONT_EUR]) / 1000000
+
+Nb mouvements = SUM(STG3_PONT[NB_CONTRATS])
+
+/* Pour le bandeau Data Quality : les mesures dependront des codes CONTROLE
+   effectivement produits dans STG3_DQ_CONTROLES. Exemple generique :
+
+Nb KO controle = SUM(STG3_DQ_CONTROLES[NB_KO])
+Taux KO controle = DIVIDE([Nb KO controle], SUM(STG3_DQ_CONTROLES[NB_POPULATION]))
+*/
+
+/* Attention :
+   - LGDD ponderee n'est validee que si LGDD_NUM = somme(EAD x LGDD)
+     et LGDD_DEN_EUR = somme(EAD eligibles), selon doctrine metier.
+   - si LGDD source est exprimee en 0-100, normaliser avant agregation.
+   - si la provision source est negative, normaliser le signe avant le pont
+     ou adapter la presentation ; ne pas appliquer ABS sans validation.
+   - le segment DIM_SCOPE_RISQUE filtre STG3_AGG_MODELE et STG3_PONT.
+     Le donut/tableau sont par modele ; le waterfall est calcule au perimetre
+     risque, sans filtre individuel de modele dans la premiere version.
+*/
