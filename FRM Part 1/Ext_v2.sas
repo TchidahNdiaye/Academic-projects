@@ -1,7 +1,4 @@
 /*==========================================================================
-  EXTRACTION STAGE 3 IFRS 9 - DASHBOARD POWER BI
-  Version adaptee aux validations communiquees le 07/11/2026
-
   SORTIES :
     F_STAGE3_STOCKS : ARRETE x MODEL x NATURE_RISQUE_STD
     F_STAGE3_PONTS  : SCOPE_MODELE x SCOPE_RISQUE x ETAPE
@@ -29,6 +26,29 @@
       risque avant de calculer les 28 scopes : evite de multiplier 700k lignes
       par 28 dans une table intermediaire.
 ==========================================================================*/
+
+
+/* 1. Identification des anomalies (comptes F sans P) */
+PROC SQL;
+    CREATE TABLE work.anomalies_fusions AS
+    SELECT 
+        a.id_contrat,
+        a.id_doss,
+        a.cmpt_fusion,
+        'Fusion rompue (P absent)' AS statut_anomalie
+    FROM 
+        work.ma_table_base a
+    WHERE 
+        a.cmpt_fusion = 'F'               /* On cible uniquement les comptes F */
+        AND a.id_doss IS NOT NULL         /* On s'assure d'avoir un dossier */
+        AND NOT EXISTS (                  /* Et on vérifie qu'il n'y a pas de P dans ce dossier */
+            SELECT 1 
+            FROM work.ma_table_base b 
+            WHERE b.id_doss = a.id_doss 
+              AND b.cmpt_fusion = 'P'
+        );
+QUIT;
+
 
 /* PARAMETRES */
 %let SRC         = BASE;
