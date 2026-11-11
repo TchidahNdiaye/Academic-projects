@@ -1,0 +1,460 @@
+// 0. Socle | 0.0 % | Doit rester égal à &v_seuil. des trois programmes SAS (paramètre unique : règles, CDE, dimensions, concordance)
+Seuil vert =
+0.95
+
+// 0. Socle | 0.0 % | Doit rester égal à &o_seuil. des trois programmes SAS
+Seuil orange =
+0.90
+
+// 0. Socle |  | Bandeau S3 (porte d’entrée)
+Message statut M =
+VAR t = CALCULATE(MAX(PUB_RUN_SUMMARY[GATE_ENTREE]), DIM_ARRETE[ROLE] = "M")
+RETURN IF(ISBLANK(t), "n.d.", t)
+
+// 1. Qualité | 0.0 % | Taux en encours, dans le contexte de filtre courant
+Score =
+1 - DIVIDE(SUM(PUB_CDE_SCORE[EAD_NON_CONFORME]), SUM(PUB_CDE_SCORE[EAD_APPLICABLE]))
+
+// 1. Qualité | 0.0 % | D1-K1, D2-V1, X1-K3
+Score M =
+CALCULATE([Score], DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | 0.0 % | D2-V1
+Score M-1 =
+CALCULATE([Score], DIM_ARRETE[ROLE] = "M-1")
+
+// 1. Qualité | +0.0" pt";-0.0" pt" | D1-K1, D1-V3, X1-K3
+Écart score pt =
+([Score M] - [Score M-1]) * 100
+
+// 1. Qualité | 0.0 % | 
+Taux dimension =
+1 - DIVIDE(SUM(PUB_DIM_SCORE[EAD_NON_CONFORME]), SUM(PUB_DIM_SCORE[EAD_APPLICABLE]))
+
+// 1. Qualité | 0.0 % | D1-V1, D2-V2
+Taux dimension M =
+CALCULATE([Taux dimension], DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | 0.0 % | D1-V1
+Taux dimension M-1 =
+CALCULATE([Taux dimension], DIM_ARRETE[ROLE] = "M-1")
+
+// 1. Qualité | 0.0 % | Intermédiaire
+Taux règle M =
+CALCULATE(DIVIDE(SUM(PUB_RULE_RESULT[N_TESTE]) - SUM(PUB_RULE_RESULT[N_ECHEC]), SUM(PUB_RULE_RESULT[N_TESTE])), DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | 0.0 % | Intermédiaire
+Taux règle M-1 =
+CALCULATE(DIVIDE(SUM(PUB_RULE_RESULT[N_TESTE]) - SUM(PUB_RULE_RESULT[N_ECHEC]), SUM(PUB_RULE_RESULT[N_TESTE])), DIM_ARRETE[ROLE] = "M-1")
+
+// 1. Qualité | 0 | D1-K2
+Règles testées M =
+COUNTROWS(FILTER(VALUES(DIM_REGLE[RULE_ID]), CALCULATE(SUM(PUB_RULE_RESULT[N_TESTE]), DIM_ARRETE[ROLE] = "M") > 0))
+
+// 1. Qualité | 0 | D1-K2
+Règles hors seuil M =
+COUNTROWS(FILTER(VALUES(DIM_REGLE[RULE_ID]), VAR t = [Taux règle M] RETURN NOT ISBLANK(t) && t < MAX(DIM_REGLE[SEUIL_VERT])))
+
+// 1. Qualité | 0 | D1-K2
+Règles hors seuil M-1 =
+COUNTROWS(FILTER(VALUES(DIM_REGLE[RULE_ID]), VAR t = [Taux règle M-1] RETURN NOT ISBLANK(t) && t < MAX(DIM_REGLE[SEUIL_VERT])))
+
+// 1. Qualité |  | D1-K2 (valeur)
+Règles hors seuil texte =
+[Règles hors seuil M] & " / " & [Règles testées M]
+
+// 1. Qualité | +0;-0;0 | D1-K2 (référence)
+Écart règles hors seuil =
+[Règles hors seuil M] - [Règles hors seuil M-1]
+
+// 1. Qualité | #,0 | D1-K3, X1-K6
+Contrats critiques M =
+CALCULATE(SUM(PUB_RUN_SUMMARY[N_CONTRATS_CRITIQUES]), DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | #,0 | 
+Contrats critiques M-1 =
+CALCULATE(SUM(PUB_RUN_SUMMARY[N_CONTRATS_CRITIQUES]), DIM_ARRETE[ROLE] = "M-1")
+
+// 1. Qualité | +#,0;-#,0;0 | D1-K3, X1-K6 (référence)
+Écart contrats critiques =
+[Contrats critiques M] - [Contrats critiques M-1]
+
+// 1. Qualité | #,0.0,," M€" | D1-K4
+EAD critique M =
+CALCULATE(SUM(PUB_RUN_SUMMARY[EAD_CRITIQUE]), DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | +#,0.0,," M€";-#,0.0,," M€" | D1-K4 (référence)
+Écart EAD critique =
+CALCULATE(SUM(PUB_RUN_SUMMARY[EAD_CRITIQUE]), DIM_ARRETE[ROLE] = "M") - CALCULATE(SUM(PUB_RUN_SUMMARY[EAD_CRITIQUE]), DIM_ARRETE[ROLE] = "M-1")
+
+// 1. Qualité | 0 | D1-V2 (valeur 1, dans le contexte du ROLE de l’axe)
+CDE verts =
+COUNTROWS(FILTER(VALUES(DIM_CDE[CDE_ID]), VAR s = [Score] RETURN NOT ISBLANK(s) && s >= [Seuil vert]))
+
+// 1. Qualité | 0 | D1-V2 (valeur 2)
+CDE oranges =
+COUNTROWS(FILTER(VALUES(DIM_CDE[CDE_ID]), VAR s = [Score] RETURN NOT ISBLANK(s) && s < [Seuil vert] && s >= [Seuil orange]))
+
+// 1. Qualité | 0 | D1-V2 (valeur 3)
+CDE rouges =
+COUNTROWS(FILTER(VALUES(DIM_CDE[CDE_ID]), VAR s = [Score] RETURN NOT ISBLANK(s) && s < [Seuil orange]))
+
+// 1. Qualité | #,0 | D4-V1, D4-V2
+Anomalies M =
+CALCULATE(SUM(PUB_ISSUE_AGG[N_ANOMALIES]), DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | #,0 | D4-V3
+Échecs règle M =
+CALCULATE(SUM(PUB_RULE_RESULT[N_ECHEC]), DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | #,0 | D4-V3
+Échecs règle M-1 =
+CALCULATE(SUM(PUB_RULE_RESULT[N_ECHEC]), DIM_ARRETE[ROLE] = "M-1")
+
+// 1. Qualité | 0.0 % | D4-V3
+Part EAD en échec M =
+DIVIDE(CALCULATE(SUM(PUB_RULE_RESULT[EAD_ECHEC]), DIM_ARRETE[ROLE] = "M"), CALCULATE(SUM(PUB_RUN_SUMMARY[EAD_TOTAL]), DIM_ARRETE[ROLE] = "M"))
+
+// S3 Stage 3 | #,0.0,," M€" | S3-K1 
+S3 EAD M =
+CALCULATE(SUM(PUB_S3_PONTS[EAD_PONT_EUR]), PUB_S3_PONTS[ETAPE] = "Stock M")
+
+// S3 Stage 3 | #,0.0,," M€" | 
+S3 EAD M-1 =
+CALCULATE(SUM(PUB_S3_PONTS[EAD_PONT_EUR]), PUB_S3_PONTS[ETAPE] = "Stock M-1")
+
+// S3 Stage 3 | +0.0 %;-0.0 % | S3-K1 (référence)
+S3 EAD variation % =
+DIVIDE([S3 EAD M] - [S3 EAD M-1], [S3 EAD M-1])
+
+// S3 Stage 3 | #,0.0,," M€" | S3-K2, S3-V4
+S3 Provision M =
+CALCULATE(SUM(PUB_S3_PONTS[PROVISION_PONT_EUR]), PUB_S3_PONTS[ETAPE] = "Stock M")
+
+// S3 Stage 3 | #,0.0,," M€" | 
+S3 Provision M-1 =
+CALCULATE(SUM(PUB_S3_PONTS[PROVISION_PONT_EUR]), PUB_S3_PONTS[ETAPE] = "Stock M-1")
+
+// S3 Stage 3 | +0.0 %;-0.0 % | S3-K2 (référence)
+S3 Provision variation % =
+DIVIDE([S3 Provision M] - [S3 Provision M-1], [S3 Provision M-1])
+
+// S3 Stage 3 | 0.0 % | S3-K3, S3-V4 – ratio de sommes : jamais une moyenne de LGDD
+S3 LGDD M =
+DIVIDE(CALCULATE(SUM(PUB_S3_PONTS[LGDD_X_EAD]), PUB_S3_PONTS[ETAPE] = "Stock M"), CALCULATE(SUM(PUB_S3_PONTS[EAD_AVEC_LGDD]), PUB_S3_PONTS[ETAPE] = "Stock M"))
+
+// S3 Stage 3 | 0.0 % | S3-V4
+S3 LGDD M-1 =
+DIVIDE(CALCULATE(SUM(PUB_S3_PONTS[LGDD_X_EAD]), PUB_S3_PONTS[ETAPE] = "Stock M-1"), CALCULATE(SUM(PUB_S3_PONTS[EAD_AVEC_LGDD]), PUB_S3_PONTS[ETAPE] = "Stock M-1"))
+
+// S3 Stage 3 | +0.0" pt";-0.0" pt" | S3-K3 (référence)
+S3 LGDD écart pt =
+([S3 LGDD M] - [S3 LGDD M-1]) * 100
+
+// S3 Stage 3 | #,0 | S3-K4
+S3 Contrats M =
+CALCULATE(SUM(PUB_S3_PONTS[NB_CONTRATS]), PUB_S3_PONTS[ETAPE] = "Stock M")
+
+// S3 Stage 3 | +#,0;-#,0;0 | S3-K4 (référence)
+S3 Contrats écart =
+[S3 Contrats M] - CALCULATE(SUM(PUB_S3_PONTS[NB_CONTRATS]), PUB_S3_PONTS[ETAPE] = "Stock M-1")
+
+// S3 Stage 3 | #,0.0,," M€" | S3-V1 (cascade)
+S3 Pont EAD =
+SUM(PUB_S3_PONTS[EAD_PONT_EUR])
+
+// S3 Stage 3 | #,0.0,," M€" | S3-V2 (cascade)
+S3 Pont provision =
+SUM(PUB_S3_PONTS[PROVISION_PONT_EUR])
+
+// S3 Stage 3 | #,0 | S3-V3
+S3 TID contrats M =
+CALCULATE(SUM(PUB_S3_TID[NB_CONTRATS]), DIM_ARRETE[ROLE] = "M")
+
+// S3 Stage 3 | #,0.0,," M€" | S3-V3
+S3 TID EAD M =
+CALCULATE(SUM(PUB_S3_TID[EAD_EUR]), DIM_ARRETE[ROLE] = "M")
+
+// S3 Stage 3 | #,0.0,," M€" | S3-V3
+S3 TID provision M =
+CALCULATE(SUM(PUB_S3_TID[PROVISION_EUR]), DIM_ARRETE[ROLE] = "M")
+
+// S3 Stage 3 | #,0 | Bandeau S3
+S3 Exceptions M =
+CALCULATE(SUM(PUB_S3_EXCEPTIONS[NB_LIGNES]), DIM_ARRETE[ROLE] = "M")
+
+// S3 Stage 3 | #,0 | Bandeau S3 – doit valoir 0
+S3 Écart réconciliation =
+MAXX(PUB_S3_RECONCILIATION, ABS(PUB_S3_RECONCILIATION[ECART_EAD_EUR]) + ABS(PUB_S3_RECONCILIATION[ECART_PROVISION_EUR]))
+
+// S3 Stage 3 |  | S3-V4 (zone sous le tableau, carte)
+S3 Bandeau DQ =
+"Porte d’entrée " & [Message statut M] & " · " & FORMAT([S3 Exceptions M], "#,0") & " exceptions · écart de réconciliation " & FORMAT([S3 Écart réconciliation], "#,0")
+
+// 2. Routage et HLC | #,0 | H1-K1
+Contrats M =
+CALCULATE(SUM(PUB_E4_SYNTHESE[N_CONTRATS]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H1-V1
+Contrats M-1 =
+CALCULATE(SUM(PUB_E4_SYNTHESE[N_CONTRATS]), DIM_ARRETE[ROLE] = "M-1")
+
+// 2. Routage et HLC | +#,0;-#,0;0 | H1-K1 (référence)
+Contrats écart =
+[Contrats M] - [Contrats M-1]
+
+// 2. Routage et HLC | #,0 | H1-K2, H1-V1
+Entrées =
+CALCULATE(SUM(PUB_SCOPE[N_CONTRATS]), DIM_ARRETE[ROLE] = "M", PUB_SCOPE[CLASSE_POP] = "IN")
+
+// 2. Routage et HLC | #,0 | H1-K3, H1-V1
+Sorties =
+CALCULATE(SUM(PUB_SCOPE[N_CONTRATS]), DIM_ARRETE[ROLE] = "M-1", PUB_SCOPE[CLASSE_POP] = "OUT")
+
+// 2. Routage et HLC | #,0 | H1-K4
+Changements de voie =
+CALCULATE(SUM(PUB_SCOPE[N_CONTRATS]), DIM_ARRETE[ROLE] = "M", PUB_SCOPE[CLASSE_POP] = "SCOPE_CHANGE")
+
+// 2. Routage et HLC | 0.0 % | H1-K2 (référence)
+Entrées % stock M-1 =
+DIVIDE([Entrées], [Contrats M-1])
+
+// 2. Routage et HLC | 0.0 % | H1-K3 (référence)
+Sorties % stock M-1 =
+DIVIDE([Sorties], [Contrats M-1])
+
+// 2. Routage et HLC | #,0 | H1-V1 (cascade ; le total final = stock M)
+Pont population =
+SWITCH(SELECTEDVALUE(T_PONT_POP[ETAPE]), "Stock M-1", [Contrats M-1], "Sorties", -[Sorties], "Entrées", [Entrées])
+
+// 2. Routage et HLC | #,0 | H1-V2 (100 % empilé)
+Contrats voie =
+SUM(PUB_SCOPE[N_CONTRATS])
+
+// 2. Routage et HLC | #,0 | H1-V3, H1-V4
+Écarts routage M =
+CALCULATE(SUM(PUB_E4_SYNTHESE[N_ECART_ROUTAGE]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H1-V3
+Écarts routage M-1 =
+CALCULATE(SUM(PUB_E4_SYNTHESE[N_ECART_ROUTAGE]), DIM_ARRETE[ROLE] = "M-1")
+
+// 2. Routage et HLC | 0.0 % | H2-K1, H2-V1, H1-V4, X1-K4
+Concordance contrats M =
+CALCULATE(DIVIDE(SUM(PUB_E4_SYNTHESE[N_MATCH]), SUM(PUB_E4_SYNTHESE[N_MATCH]) + SUM(PUB_E4_SYNTHESE[N_MISMATCH])), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | 0.0 % | H2-V1
+Concordance contrats M-1 =
+CALCULATE(DIVIDE(SUM(PUB_E4_SYNTHESE[N_MATCH]), SUM(PUB_E4_SYNTHESE[N_MATCH]) + SUM(PUB_E4_SYNTHESE[N_MISMATCH])), DIM_ARRETE[ROLE] = "M-1")
+
+// 2. Routage et HLC | +0.0" pt";-0.0" pt" | H2-K1, H2-K2, X1-K4 (référence)
+Concordance écart pt =
+([Concordance contrats M] - [Concordance contrats M-1]) * 100
+
+// 2. Routage et HLC | 0.0 % | H2-K2
+Concordance exposition M =
+CALCULATE(DIVIDE(CALCULATE(SUM(PUB_HLC_COMPARE[EAD]), PUB_HLC_COMPARE[MATCH_STATUS] = "MATCH"), CALCULATE(SUM(PUB_HLC_COMPARE[EAD]), PUB_HLC_COMPARE[MATCH_STATUS] IN {"MATCH", "MISMATCH"})), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H2-K3
+Écarts confirmés M =
+CALCULATE(SUM(PUB_E4_SYNTHESE[N_MISMATCH]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | +#,0;-#,0;0 | H2-K3 (référence)
+Écarts confirmés écart =
+[Écarts confirmés M] - CALCULATE(SUM(PUB_E4_SYNTHESE[N_MISMATCH]), DIM_ARRETE[ROLE] = "M-1")
+
+// 2. Routage et HLC | 0.0 % | H2-K4
+Part indéterminée M =
+CALCULATE(DIVIDE(SUM(PUB_E4_SYNTHESE[N_INDETERMINE]), SUM(PUB_E4_SYNTHESE[N_CONTRATS])), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | +0.0" pt";-0.0" pt" | H2-K4 (référence)
+Part indéterminée écart pt =
+([Part indéterminée M] - CALCULATE(DIVIDE(SUM(PUB_E4_SYNTHESE[N_INDETERMINE]), SUM(PUB_E4_SYNTHESE[N_CONTRATS])), DIM_ARRETE[ROLE] = "M-1")) * 100
+
+// 2. Routage et HLC | #,0 | H2-V2
+Contrats HLC M =
+CALCULATE(SUM(PUB_HLC_STOCK[N_CONTRATS]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H2-V2
+Contrats HLC M-1 =
+CALCULATE(SUM(PUB_HLC_STOCK[N_CONTRATS]), DIM_ARRETE[ROLE] = "M-1")
+
+// 2. Routage et HLC | #,0 | H2-V3
+Contrats branche M =
+CALCULATE(SUM(PUB_HLC_BRANCH[N_CONTRATS]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | 0.0 % | H2-V3
+Concordance branche M =
+CALCULATE(DIVIDE(SUM(PUB_HLC_BRANCH[N_MATCH]), SUM(PUB_HLC_BRANCH[N_MATCH]) + SUM(PUB_HLC_BRANCH[N_MISMATCH])), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H2-V4
+Contrats écart cause M =
+CALCULATE(SUM(PUB_HLC_COMPARE[N_CONTRATS]), DIM_ARRETE[ROLE] = "M", NOT(PUB_HLC_COMPARE[MATCH_STATUS] IN {"MATCH", "NOT_APPLICABLE"}))
+
+// 2. Routage et HLC | #,0 | H4-V1
+Écarts driver M =
+CALCULATE(SUM(PUB_DRIVER_ECART[N_ECARTS]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H4-V1
+Écarts driver M-1 =
+CALCULATE(SUM(PUB_DRIVER_ECART[N_ECARTS]), DIM_ARRETE[ROLE] = "M-1")
+
+// 2. Routage et HLC | +#,0," €";-#,0," €" | H4-V2
+Écart provision driver =
+SUM(PUB_HLC_DRIVER_DIFF[ECL_ECART])
+
+// 3. Provisions | #,0.0,," M€" | E1-K1, X1-K1, X1-V1
+Provision M =
+CALCULATE(SUM(PUB_ECL_AGG[ECL]), DIM_ARRETE[ROLE] = "M")
+
+// 3. Provisions | #,0.0,," M€" | E1-K2, X1-V1
+Provision M-1 =
+CALCULATE(SUM(PUB_ECL_AGG[ECL]), DIM_ARRETE[ROLE] = "M-1")
+
+// 3. Provisions | +#,0.0,," M€";-#,0.0,," M€" | E1-K3
+Variation provision =
+[Provision M] - [Provision M-1]
+
+// 3. Provisions | +0.0 %;-0.0 % | E1-K1, X1-K1 (référence)
+Variation provision % =
+DIVIDE([Variation provision], [Provision M-1])
+
+// 3. Provisions | +#,0.0,," M€";-#,0.0,," M€" | E1-V1, E1-V2, X1-V2
+Montant effet =
+SUM(PUB_ECL_EFFECT[MONTANT])
+
+// 3. Provisions | #,0.00,,," Md€" | X1-K2
+Exposition M =
+CALCULATE(SUM(PUB_RUN_SUMMARY[EAD_TOTAL]), DIM_ARRETE[ROLE] = "M")
+
+// 3. Provisions | +0.0 %;-0.0 % | X1-K2 (référence)
+Exposition variation % =
+DIVIDE([Exposition M], CALCULATE(SUM(PUB_RUN_SUMMARY[EAD_TOTAL]), DIM_ARRETE[ROLE] = "M-1")) - 1
+
+// 3. Provisions | +#,0.00,," M€";-#,0.00,," M€" | E2-K1
+Impact calculé M =
+CALCULATE(SUM(PUB_IMPACT_AGG[IMPACT_ECL]), PUB_IMPACT_AGG[STATUT_IMPACT] = "CALCULATED", DIM_ARRETE[ROLE] = "M")
+
+// 3. Provisions | +#,0.00,," M€";-#,0.00,," M€" | E2-K2
+Impact estimé M =
+CALCULATE(SUM(PUB_IMPACT_AGG[IMPACT_ECL]), PUB_IMPACT_AGG[STATUT_IMPACT] = "ESTIMATED", DIM_ARRETE[ROLE] = "M")
+
+// 3. Provisions | +#,0.00,," M€";-#,0.00,," M€" | X1-K5
+Impact total M =
+[Impact calculé M] + [Impact estimé M]
+
+// 3. Provisions | #,0.00,," M€" | E2-V1
+Réduction calculée M =
+-[Impact calculé M]
+
+// 3. Provisions | #,0.00,," M€" | E2-V1
+Réduction estimée M =
+-[Impact estimé M]
+
+// 3. Provisions | #,0.0,," M€" | E2-K3
+EAD non quantifiable M =
+CALCULATE(SUM(PUB_IMPACT_AGG[EAD]), PUB_IMPACT_AGG[STATUT_IMPACT] = "NOT_QUANTIFIABLE", DIM_ARRETE[ROLE] = "M")
+
+// 3. Provisions | #,0 "anomalies" | E2-K3 (référence)
+Contrats non quantifiables M =
+CALCULATE(SUM(PUB_IMPACT_AGG[N_ANOMALIES]), PUB_IMPACT_AGG[STATUT_IMPACT] = "NOT_QUANTIFIABLE", DIM_ARRETE[ROLE] = "M")
+
+// 3. Provisions | #,0.0,," M€" | E2-V2
+EAD par statut =
+SUM(PUB_IMPACT_AGG[EAD])
+
+// 3. Provisions | +#,0," k€";-#,0," k€" | E2-V3 (format en milliers : #,0, " k€")
+Impact règle =
+SUM(PUB_IMPACT_REGLE[IMPACT_ECL])
+
+// 3. Provisions | #,0 | E2-V3 (filtre N premiers)
+Impact règle abs =
+ABS([Impact règle])
+
+// 3. Provisions | 0.0 % | X1-K7 – seuil de certification 98 %
+Encours calculable M =
+1 - DIVIDE(CALCULATE(SUM(PUB_E5_SYNTHESE[EAD_NON_CALCULABLE]), DIM_ARRETE[ROLE] = "M"), CALCULATE(SUM(PUB_E5_SYNTHESE[EAD_BIL]) + SUM(PUB_E5_SYNTHESE[EAD_HB]), DIM_ARRETE[ROLE] = "M"))
+
+// 3. Provisions | 0.0 % | X1-K8 – seuil 99 %
+Contrats réconciliés M =
+DIVIDE(CALCULATE(SUM(PUB_RECONCILIATION[N_RECONCILIES]), PUB_RECONCILIATION[ROLE] = "M"), CALCULATE(SUM(PUB_RECONCILIATION[N_CONTRATS]), PUB_RECONCILIATION[ROLE] = "M"))
+
+// 4. Gouvernance | 0 | G1, X1-K9, bandeau d’en-tête
+Motifs ouverts =
+COUNTROWS(FILTER(PUB_CERTIFICATION, PUB_CERTIFICATION[STATUT] <> "CERTIFIED"))
+
+// 4. Gouvernance |  | G1-V1 (puce) ; règle de couleur : vert si CERTIFIÉ, rouge sinon
+Statut certification =
+IF([Motifs ouverts] = 0, "CERTIFIÉ", "NON CERTIFIÉ")
+
+// 4. Gouvernance | 0 | G1-V4
+Classes HLC sans paramètre =
+DISTINCTCOUNT(PUB_PARAM_MANQUANT[HLC])
+
+// 4. Gouvernance |  | G1-V4
+Classes HLC sans paramètre texte =
+[Classes HLC sans paramètre] & " / 9"
+
+// 4. Gouvernance | #,0 | G1-V4
+Contrats sans paramètre =
+SUM(PUB_PARAM_MANQUANT[N_CONTRATS])
+
+// 4. Gouvernance | #,0.0,," M€" | G1-V4
+EAD sans paramètre =
+SUM(PUB_PARAM_MANQUANT[EAD])
+
+// 4. Gouvernance |  | G1-V4 (couleur du texte)
+Statut paramètres =
+SWITCH(TRUE(), [Classes HLC sans paramètre] = 0, "Complet", [Classes HLC sans paramètre] >= 9, "Manquant", "Partiel")
+
+// 4. Gouvernance | 0 | G1-V1 (ligne de synthèse)
+Décisions bloquantes ouvertes =
+CALCULATE(COUNTROWS(PUB_DECISION), PUB_DECISION[BLOQUANT] = "Y", PUB_DECISION[STATUT] = "OUVERTE")
+
+// 4. Gouvernance | 0" s" | G1-V3
+Durée exécution =
+SUM(PUB_RUN_LOG[DUREE_S])
+
+// 5. Cockpit |  | X1-V3
+Message 1 =
+"La provision " & IF([Variation provision] >= 0, "progresse", "recule") & " de " & FORMAT(ABS([Variation provision %]), "0.0 %") & " (" & FORMAT([Variation provision], "+#,0.0,, ;-#,0.0,, ") & " M€)."
+
+// 5. Cockpit |  | X1-V3
+Message 2 =
+"Score qualité " & FORMAT([Score M], "0.0 %") & " (" & FORMAT([Écart score pt], "+0.0;-0.0") & " pt) ; concordance HLC " & FORMAT([Concordance contrats M], "0.0 %") & "."
+
+// 5. Cockpit |  | X1-V3
+Message 3 =
+[Statut certification] & " : " & [Motifs ouverts] & " motif(s) ouvert(s)."
+
+// 1. Qualité | 0 | D1-V2 (via [CDE par feu M])
+CDE verts M =
+CALCULATE([CDE verts], DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | 0 | D1-V2
+CDE oranges M =
+CALCULATE([CDE oranges], DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | 0 | D1-V2
+CDE rouges M =
+CALCULATE([CDE rouges], DIM_ARRETE[ROLE] = "M")
+
+// 1. Qualité | 0 | D1-V2 (anneau : catégorie = T_FEU[FEU])
+CDE par feu M =
+SWITCH(SELECTEDVALUE(T_FEU[FEU]), "Conforme", [CDE verts M], "À surveiller", [CDE oranges M], "Sous le seuil", [CDE rouges M])
+
+// 1. Qualité | #,0.0,," M€" | D2-V1 (taille des bulles)
+EAD applicable M =
+CALCULATE(SUM(PUB_CDE_SCORE[EAD_APPLICABLE]), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | 0 % | H4-V1 (courbe, axe secondaire)
+Part changeant la HLC M =
+CALCULATE(DIVIDE(SUM(PUB_DRIVER_ECART[N_CHANGE_HLC]), SUM(PUB_DRIVER_ECART[N_ECARTS])), DIM_ARRETE[ROLE] = "M")
+
+// 2. Routage et HLC | #,0 | H4-V2 (axe X du nuage de points)
+Contrats en écart =
+SUM(PUB_HLC_DRIVER_DIFF[N_CONTRATS])
+
+// 2. Routage et HLC | #,0.0,," M€" | H4-V2 (taille)
+EAD en écart driver =
+SUM(PUB_HLC_DRIVER_DIFF[EAD])
